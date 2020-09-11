@@ -258,6 +258,14 @@
       real (kind=dbl_kind), public :: atmiter_conv = c0
 
 !-----------------------------------------------------------------------
+! Parameters for ocean
+!-----------------------------------------------------------------------
+
+      real (kind=dbl_kind), public :: &
+         zref_ocn   = 10._dbl_kind     ,&! ocean reference surface current depth (m)
+         iceruf_ocn = 0.0005_dbl_kind    ! under ice roughness (m)
+
+!-----------------------------------------------------------------------
 ! Parameters for the ice thickness distribution
 !-----------------------------------------------------------------------
 
@@ -400,7 +408,7 @@
          ahmax_in, R_ice_in, R_pnd_in, R_snw_in, dT_mlt_in, rsnw_mlt_in, &
          kalg_in, kstrength_in, krdg_partic_in, krdg_redist_in, mu_rdg_in, &
          atmbndy_in, calc_strair_in, formdrag_in, highfreq_in, natmiter_in, &
-         atmiter_conv_in, &
+         atmiter_conv_in, zref_ocn_in, iceruf_ocn_in, &
          tfrz_option_in, kitd_in, kcatbound_in, hs0_in, frzpnd_in, &
          floeshape_in, wave_spec_in, wave_spec_type_in, nfreq_in, &
          dpscale_in, rfracmin_in, rfracmax_in, pndaspect_in, hs1_in, hp1_in, &
@@ -598,6 +606,14 @@
         
       ! Flux convergence tolerance
       real (kind=dbl_kind), intent(in), optional :: atmiter_conv_in
+
+!-----------------------------------------------------------------------
+! Parameters for ocean
+!-----------------------------------------------------------------------
+
+      real (kind=dbl_kind), intent(in), optional :: &
+         zref_ocn_in,       & ! reference height for stability (m)
+         iceruf_ocn_in        ! under ice roughness (m)
 
 !-----------------------------------------------------------------------
 ! Parameters for the ice thickness distribution
@@ -805,6 +821,8 @@
       if (present(highfreq_in)          ) highfreq         = highfreq_in
       if (present(natmiter_in)          ) natmiter         = natmiter_in
       if (present(atmiter_conv_in)      ) atmiter_conv     = atmiter_conv_in
+      if (present(zref_ocn_in)          ) zref_ocn         = zref_ocn_in
+      if (present(iceruf_ocn_in)        ) iceruf_ocn       = iceruf_ocn_in
       if (present(tfrz_option_in)       ) tfrz_option      = tfrz_option_in
       if (present(kitd_in)              ) kitd             = kitd_in
       if (present(kcatbound_in)         ) kcatbound        = kcatbound_in
@@ -898,7 +916,7 @@
          rsnw_mlt_out, dEdd_algae_out, &
          kalg_out, kstrength_out, krdg_partic_out, krdg_redist_out, mu_rdg_out, &
          atmbndy_out, calc_strair_out, formdrag_out, highfreq_out, natmiter_out, &
-         atmiter_conv_out, &
+         atmiter_conv_out, zref_ocn_out, iceruf_ocn_out, &
          tfrz_option_out, kitd_out, kcatbound_out, hs0_out, frzpnd_out, &
          floeshape_out, wave_spec_out, wave_spec_type_out, nfreq_out, &
          dpscale_out, rfracmin_out, rfracmax_out, pndaspect_out, hs1_out, hp1_out, &
@@ -1105,6 +1123,14 @@
         
       ! Flux convergence tolerance
       real (kind=dbl_kind), intent(out), optional :: atmiter_conv_out
+
+!-----------------------------------------------------------------------
+! Parameters for ocean
+!-----------------------------------------------------------------------
+
+      real (kind=dbl_kind), intent(out), optional :: &
+         zref_ocn_out,     & ! reference height for stability (m)
+         iceruf_ocn_out      ! under ice roughness (m)
 
 !-----------------------------------------------------------------------
 ! Parameters for the ice thickness distribution
@@ -1353,6 +1379,8 @@
       if (present(highfreq_out)          ) highfreq_out     = highfreq
       if (present(natmiter_out)          ) natmiter_out     = natmiter
       if (present(atmiter_conv_out)      ) atmiter_conv_out = atmiter_conv
+      if (present(zref_ocn_out)          ) zref_ocn_out     = zref_ocn
+      if (present(iceruf_ocn_out)        ) iceruf_ocn_out   = iceruf_ocn
       if (present(tfrz_option_out)       ) tfrz_option_out  = tfrz_option
       if (present(kitd_out)              ) kitd_out         = kitd
       if (present(kcatbound_out)         ) kcatbound_out    = kcatbound
@@ -1531,6 +1559,8 @@
         write(iounit,*) "  highfreq      = ", highfreq
         write(iounit,*) "  natmiter      = ", natmiter
         write(iounit,*) "  atmiter_conv  = ", atmiter_conv
+        write(iounit,*) "  zref_ocn      = ", zref_ocn
+        write(iounit,*) "  iceruf_ocn    = ", iceruf_ocn
         write(iounit,*) "  tfrz_option   = ", tfrz_option
         write(iounit,*) "  kitd          = ", kitd
         write(iounit,*) "  kcatbound     = ", kcatbound

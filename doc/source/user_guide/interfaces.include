@@ -750,7 +750,7 @@ icepack_init_parameters
            ahmax_in, R_ice_in, R_pnd_in, R_snw_in, dT_mlt_in, rsnw_mlt_in, &
            kalg_in, kstrength_in, krdg_partic_in, krdg_redist_in, mu_rdg_in, &
            atmbndy_in, calc_strair_in, formdrag_in, highfreq_in, natmiter_in, &
-           atmiter_conv_in, &
+           atmiter_conv_in, zref_ocn_in, iceruf_ocn_in, &
            tfrz_option_in, kitd_in, kcatbound_in, hs0_in, frzpnd_in, &
            floeshape_in, wave_spec_in, wave_spec_type_in, nfreq_in, &
            dpscale_in, rfracmin_in, rfracmax_in, pndaspect_in, hs1_in, hp1_in, &
@@ -950,6 +950,14 @@ icepack_init_parameters
         real (kind=dbl_kind), intent(in), optional :: atmiter_conv_in
   
   !-----------------------------------------------------------------------
+  ! Parameters for ocean
+  !-----------------------------------------------------------------------
+  
+        real (kind=dbl_kind), intent(in), optional :: &
+           zref_ocn_in,       & ! reference height for stability (m)
+           iceruf_ocn_in        ! under ice roughness (m)
+  
+  !-----------------------------------------------------------------------
   ! Parameters for the ice thickness distribution
   !-----------------------------------------------------------------------
   
@@ -1096,7 +1104,7 @@ icepack_query_parameters
            rsnw_mlt_out, dEdd_algae_out, &
            kalg_out, kstrength_out, krdg_partic_out, krdg_redist_out, mu_rdg_out, &
            atmbndy_out, calc_strair_out, formdrag_out, highfreq_out, natmiter_out, &
-           atmiter_conv_out, &
+           atmiter_conv_out, zref_ocn_out, iceruf_ocn_out, &
            tfrz_option_out, kitd_out, kcatbound_out, hs0_out, frzpnd_out, &
            floeshape_out, wave_spec_out, wave_spec_type_out, nfreq_out, &
            dpscale_out, rfracmin_out, rfracmax_out, pndaspect_out, hs1_out, hp1_out, &
@@ -1303,6 +1311,14 @@ icepack_query_parameters
           
         ! Flux convergence tolerance
         real (kind=dbl_kind), intent(out), optional :: atmiter_conv_out
+  
+  !-----------------------------------------------------------------------
+  ! Parameters for ocean
+  !-----------------------------------------------------------------------
+  
+        real (kind=dbl_kind), intent(out), optional :: &
+           zref_ocn_out,     & ! reference height for stability (m)
+           iceruf_ocn_out      ! under ice roughness (m)
   
   !-----------------------------------------------------------------------
   ! Parameters for the ice thickness distribution

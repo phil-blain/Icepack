@@ -16,6 +16,7 @@
       use icepack_parameters,  only: c0, c1, c2, c4, c5, c8, c10
       use icepack_parameters,  only: c16, c20, p001, p01, p2, p4, p5, p75, puny
       use icepack_parameters,  only: cp_wv, cp_air, iceruf, zref, qqqice, TTTice, qqqocn, TTTocn
+      use icepack_parameters,  only: iceruf_ocn, zref_ocn
       use icepack_parameters,  only: Lsub, Lvap, vonkar, Tffresh, zvir, gravit
       use icepack_parameters,  only: pih, dragio, rhoi, rhos, rhow
       use icepack_parameters, only: atmbndy, calc_strair, formdrag
@@ -620,6 +621,7 @@
          ai, aii,   & ! ice area and its inverse
          ocnrufi,   & ! inverse ocean roughness
          icerufi,   & ! inverse ice roughness
+         iceruf_ocni, & ! inverse under ice rouhness
          tmp1         ! temporary
 
       real (kind=dbl_kind) :: &
@@ -644,6 +646,7 @@
 
       ocnrufi  = c1/ocnruf    ! inverse ocean roughness
       icerufi  = c1/iceruf    ! inverse ice roughness
+      iceruf_ocni  = c1/iceruf_ocn ! inverse under ice roughness
       hfreebd=c0
       hdraft =c0       
       hridge =c0       
@@ -777,7 +780,7 @@
             scw = c1 - exp(-sHGB*dkeel/tmp1) 
             ctecwk = crw*p5
             Cdn_ocn_keel = ctecwk*tmp1/dkeel*scw* &
-                        (log(tmp1*icerufi)/log(zref*icerufi))**c2  
+                        (log(tmp1*iceruf_ocni)/log(zref_ocn*iceruf_ocni))**c2  
             Cdn_ocn_keel = max(min(Cdn_ocn_keel,cwmax),c0)
           endif
   
@@ -812,7 +815,7 @@
 
         if (hdraft > puny) then
           scw = c1 - exp(-sl*beta*(c1-ai))
-          ctecwf = cfw*p5*(log(hdraft*ocnrufi)/log(zref*ocnrufi))**c2*scw
+          ctecwf = cfw*p5*(log(hdraft*ocnrufi)/log(zref_ocn*ocnrufi))**c2*scw
           Cdn_ocn_floe = ctecwf * hdraft / lfloe
           Cdn_ocn_floe = max(min(Cdn_ocn_floe,cwmax),c0)
         endif
