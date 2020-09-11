@@ -83,7 +83,7 @@ Some hints:
 
 - To turn on the debug compiler flags, set ``ICE_BLDDEBUG`` in **icepack.setttings** to true
 - To change compiler options, manually edit the Macros file.  To add user defined preprocessor macros, modify ``ICE_CPPDEFS`` in **icepack.settings** using the syntax ``-DCICE_MACRO``.
-- To clean the build before each compile, set ``ICE_CLEANBUILD`` in **icepack.settings** to true.  To not clean before the build, set ``ICE_CLEANBUILD`` in **icepack.settings** to false
+- To clean the build before each compile, set ``ICE_CLEANBUILD`` in **icepack.settings** to true (this is the default value), or use the ``buildclean`` option (``-s buildclean``)  when creating the case with **icepack.setup**.  To not clean before the build, set ``ICE_CLEANBUILD`` in **icepack.settings** to false, or use the ``buildincremental`` option  (``-s buildincremental``) when creating the case with **icepack.setup**.
 
 To build and run::
 
@@ -168,6 +168,10 @@ option chosen takes precedence.  Not all options are compatible with each other.
 Some of the options are
 
 ``debug`` which turns on the compiler debug flags
+
+``buildclean`` which turns on the option to clean the build before each compile
+
+``buildincremental`` which turns off the option to clean the build before each compile
 
 ``short``, ``medium``, ``long`` which change the batch time limit
 
